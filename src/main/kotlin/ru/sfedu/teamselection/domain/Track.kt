@@ -1,31 +1,51 @@
 package ru.sfedu.teamselection.domain
 
+import com.fasterxml.jackson.annotation.JsonManagedReference
+import com.fasterxml.jackson.annotation.JsonProperty
+import com.fasterxml.jackson.annotation.JsonValue
+import org.springframework.format.annotation.DateTimeFormat
 import java.util.*
 import javax.persistence.*
 
 
 @Entity
 @Table(name = "track")
-@DiscriminatorColumn(name = "type")
 @Access(AccessType.FIELD)
 class Track(
     @Column
-    var name: String = "",
+    @JsonProperty
+    var name: String? = null,
     @Column
-    var about: String = "",
+    @JsonProperty
+    var about: String? = null,
     @Column
-    var startDate: Date = Date(),
+    @JsonProperty
+    @DateTimeFormat(pattern = "dd/MM/yyyy")
+    var startDate: Date? = null,
     @Column
-    var endDate: Date = Date(),
-    @Column(name = "type")
-    var type: String = "", //два значения bachelor/master
+    @JsonProperty
+    @DateTimeFormat(pattern = "dd/MM/yyyy")
+    var endDate: Date? = null,
     @Column
-    var minConstraint: Int = 3,
+    @JsonProperty
+    var type: String? = null, //два значения bachelor/master
     @Column
-    var maxConstraint: Int = 5,
+    @JsonProperty
+    var minConstraint: Int? = 3,
+    @Column
+    @JsonProperty
+    var maxConstraint: Int? = 5,
     @Column
     var maxThirdCourseConstraint: Int? = null,
-    @Column
     @OneToMany(mappedBy = "currentTrack", fetch = FetchType.LAZY)
-    var currentTeams: List<Team> = mutableListOf()
-): Domain()
+    @JsonManagedReference
+    var currentTeams: MutableList<Team>? = mutableListOf(),
+): Domain() {
+    override fun toString(): String {
+        return ""
+    }
+
+    override fun equals(other: Any?): Boolean {
+        return true
+    }
+}

@@ -1,5 +1,8 @@
 package ru.sfedu.teamselection.domain
 
+import com.fasterxml.jackson.annotation.JsonBackReference
+import com.fasterxml.jackson.annotation.JsonProperty
+import org.springframework.boot.context.properties.bind.DefaultValue
 import ru.sfedu.teamselection.enums.Roles
 import javax.persistence.*
 
@@ -8,25 +11,51 @@ import javax.persistence.*
 @Access(AccessType.FIELD)
 class Student(
     @Column
-    var fio: String = "",
+    @JsonProperty
+    var fio: String? = null,
     @Column
-    var email: String = "",
+    @JsonProperty
+    var email: String? = null,
     @Column
-    var course: Int = 0,
+    @JsonProperty
+    var course: Int? = null,
     @Column
-    var groupNumber: Int = 0,
+    @JsonProperty
+    var groupNumber: Int? = null,
     @Column
-    var aboutSelf: String = "",
+    @JsonProperty
+    var aboutSelf: String? = null,
     @Column
-    var tags: String = "", // Строка разделенная пробелами
+    @JsonProperty
+    var tags: String? = null, // Строка разделенная пробелами
     @Column
-    var contacts: String = "",
+    @JsonProperty
+    var contacts: String? = null,
     @Column
-    var status: Boolean = false, // статус участик команды/не участник
+    @JsonProperty
+    @DefaultValue(value = ["false"])
+    var status: Boolean? = null, // статус участик команды/не участник
     @ManyToOne(fetch = FetchType.LAZY)
+    @JsonBackReference
     var currentTeam: Team? = null,
     @Column
-    var captain: Boolean = false,
+    var trackId: Long? = null,
+    @Column
+    @DefaultValue(value = ["false"])
+    @JsonProperty
+    var captain: Boolean? = null, //TODO поменять логику начального значения
+    @Column
+    @JsonProperty
+    var subscriptions: String? = "",
     @OneToOne
-    var users: Users? = null
-): Domain()
+    @JsonProperty
+    var user: Users? = null
+): Domain() {
+    override fun toString(): String { //TODO fix
+        return ""
+    }
+
+    override fun equals(other: Any?): Boolean {
+        return true
+    }
+}

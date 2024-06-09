@@ -8,12 +8,12 @@ import javax.persistence.*
 @Table(name = "users")
 class Users(
     @Column
-    var fio: String = "",
+    var fio: String? = null,
     @Column
-    var email: String = "",
+    var email: String? = null,
     @Column
     @Enumerated(EnumType.STRING)
     var role: Roles? = null,
     @Column
-    var registered: Boolean? = null
+    var registered: Boolean? = null,
 ): Domain()

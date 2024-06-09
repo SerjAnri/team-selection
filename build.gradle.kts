@@ -9,7 +9,6 @@ plugins {
 }
 
 group = "ru.sfedu"
-version = "0.0.1-SNAPSHOT"
 
 java {
     sourceCompatibility = JavaVersion.VERSION_17
@@ -42,6 +41,11 @@ dependencies {
 
     //excel
     implementation("com.github.opendevl:json2flat:1.0.3")
+    implementation("org.apache.poi:poi:5.2.0")
+    implementation("org.apache.poi:poi-ooxml:5.2.0")
+
+    //swagger
+    implementation("org.springdoc:springdoc-openapi-ui:1.8.0")
 
     //logging
     implementation("io.github.microutils:kotlin-logging:3.0.4")

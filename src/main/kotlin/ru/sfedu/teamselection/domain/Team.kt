@@ -1,5 +1,8 @@
 package ru.sfedu.teamselection.domain
 
+import com.fasterxml.jackson.annotation.JsonBackReference
+import com.fasterxml.jackson.annotation.JsonManagedReference
+import org.springframework.boot.context.properties.bind.DefaultValue
 import javax.persistence.*
 
 @Entity
@@ -7,18 +10,36 @@ import javax.persistence.*
 @Access(AccessType.FIELD)
 class Team(
     @Column
-    var name: String = "",
+    var name: String? = null,
     @Column
-    var about: String = "",
+    var about: String? = null,
     @Column
-    var quantityOfStudents: Int = 0,
+    var projectType: String? = null,
     @Column
-    var fullFlag: Boolean = false,
+    @DefaultValue(value = ["0"])
+    var quantityOfStudents: Int? = 0,
     @Column
-    var tags: String = "",
+    var captainId: Long? = 0,
+    @Column
+    @DefaultValue(value = ["false"])
+    var fullFlag: Boolean? = null,
+    @Column
+    var tags: String? = "",
     @ManyToOne(fetch = FetchType.LAZY)
+    @JsonBackReference
     var currentTrack: Track? = null,
     @Column
     @OneToMany(mappedBy = "currentTeam", fetch = FetchType.LAZY)
-    var students: MutableList<Student> = mutableListOf()
-): Domain()
+    @JsonManagedReference
+    var students: MutableList<Student>? = null,
+    @Column
+    var candidates: String? = ""
+): Domain() {
+    override fun toString(): String { //TODO fix
+        return ""
+    }
+
+    override fun equals(other: Any?): Boolean {
+        return true
+    }
+}

@@ -1,6 +1,6 @@
 package ru.sfedu.teamselection.enums
 
-enum class Tag { //TODO сказать про тэги
+enum class SkillTags {
     `C#`,
     `C++`,
     Java,
